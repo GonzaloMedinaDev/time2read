@@ -6,16 +6,17 @@ import { useSDK } from '@contentful/react-apps-toolkit';
 const CONTENT_FIELD_ID = 'body';
 const WORDS_PER_MINUTE = 160;
 
-const readingTime = (content: string) => {
+const readingTime = (content: undefined | string) => {
   let wordCount = 0;
+  let response = '0 minutes read';
 
   if (content !== undefined) {
     wordCount += content.split(' ').length;
     const minutes = Math.ceil(wordCount / WORDS_PER_MINUTE);
-    return `${minutes} minute${minutes > 1 ? 's' : ''} read`;
-  } else {
-    return '0 minutes read';
+    response = `${minutes} minute${minutes > 1 ? 's' : ''} read`;
   }
+
+  return response;
 };
 
 const Field = () => {
@@ -24,19 +25,28 @@ const Field = () => {
   const [timeToRead, setTimeToRead] = useState('0 minutes read');
 
   useEffect(() => {
-    const detach = contentField.onValueChanged((value) => {
+    sdk.window.startAutoResizer();
+
+    console.log('contentField => ', contentField);
+
+    const detach = contentField.onValueChanged((value: undefined | string) => {
       const res = readingTime(value);
       setTimeToRead(res);
       sdk.field.setValue(res);
     });
+
     return () => detach();
-  }, [contentField, sdk.field]);
+  }, [contentField, sdk.field, sdk.window]);
 
-  useEffect(() => {
-    sdk.window.startAutoResizer();
-  }, [sdk.window]);
-
-  return <TextInput name='time-read' value={timeToRead} isReadOnly={true} />;
+  return (
+    <TextInput
+      defaultValue={timeToRead}
+      isReadOnly
+      name='time-read'
+      type='text'
+      value={timeToRead}
+    />
+  );
 };
 
 export default Field;
