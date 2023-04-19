@@ -61,11 +61,7 @@ const Field = () => {
     };
 
     return () => detach();
-  }, [fieldBody, fieldBody2, sdk.window, updateMessage]);
-
-  // useEffect(() => {
-  //   setTtimeMessage(`${timeToRead} minute${timeToRead > 1 ? 's' : ''} read`);
-  // }, [timeToRead]);
+  }, [fieldBody, fieldBody2, sdk.window, timeToRead, updateMessage]);
 
   return (
     <TextInput
