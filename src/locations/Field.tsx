@@ -21,8 +21,8 @@ const Field = () => {
   const fieldBody2 = sdk.entry.fields['body2'];
   const [timeMessage, setTimeMessage] = useState('');
   const [timeToRead, setTimeToRead] = useState<TimeToReadType>({
-    body: 3,
-    body2: 5,
+    body: 33,
+    body2: 55,
   });
 
   useEffect(() => {
