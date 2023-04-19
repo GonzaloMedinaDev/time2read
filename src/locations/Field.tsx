@@ -55,7 +55,7 @@ const Field = () => {
 
     return () => detach();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fieldBody, fieldBody2]);
+  }, [fieldBody, fieldBody2, sdk.field, sdk.window]);
 
   return (
     <TextInput
