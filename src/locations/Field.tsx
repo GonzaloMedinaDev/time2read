@@ -19,17 +19,17 @@ const Field = () => {
   const sdk = useSDK<FieldExtensionSDK>();
   const fieldBody = sdk.entry.fields['body'];
   const fieldBody2 = sdk.entry.fields['body2'];
-  const [timeToRead, setTimeToRead] = useState(0);
+  const [timeToRead, setTimeToRead] = useState({
+    body: 0,
+    body2: 0,
+  });
   const [timeMessage, setTimeMessage] = useState('');
 
-  const updateMessage = useCallback(
-    (time: number) => {
-      setTimeToRead(timeToRead + time);
-      setTimeMessage(`${timeToRead} minute${timeToRead > 1 ? 's' : ''} read`);
-      sdk.field.setValue(timeMessage);
-    },
-    [sdk.field, timeMessage, timeToRead]
-  );
+  const updateMessage = useCallback(() => {
+    const totalTime = timeToRead.body + timeToRead.body;
+    setTimeMessage(`${totalTime} minute${totalTime > 1 ? 's' : ''} read`);
+    sdk.field.setValue(timeMessage);
+  }, [sdk.field, timeMessage, timeToRead]);
 
   useEffect(() => {
     sdk.window.startAutoResizer();
@@ -40,13 +40,19 @@ const Field = () => {
     const scanBody = fieldBody.onValueChanged((value: undefined | string) => {
       console.log('value => ', value);
 
-      value && updateMessage(readingTime(value));
+      if (value) {
+        setTimeToRead({ ...timeToRead, body: readingTime(value) });
+        updateMessage();
+      }
     });
 
     const scanBody2 = fieldBody2.onValueChanged((value: undefined | string) => {
       console.log('value2 => ', value);
 
-      value && updateMessage(readingTime(value));
+      if (value) {
+        setTimeToRead({ ...timeToRead, body2: readingTime(value) });
+        updateMessage();
+      }
     });
 
     const detach = () => {
