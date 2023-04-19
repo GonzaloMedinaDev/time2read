@@ -31,12 +31,13 @@ const Field = () => {
     const updateMessage = () => {
       console.log('timeToRead', timeToRead);
       const totalTime = timeToRead.body + timeToRead.body2;
-      setTimeMessage(`${totalTime} minute${totalTime > 1 ? 's' : ''} read`);
+      setTimeMessage(`${totalTime} minute${totalTime === 1 ? '' : 's'} read`);
       sdk.field.setValue(timeMessage);
     };
 
     const scanBody = fieldBody.onValueChanged((value: undefined | string) => {
       if (value) {
+        console.log('body', readingTime(value));
         setTimeToRead({ ...timeToRead, body: readingTime(value) });
         updateMessage();
       }
@@ -44,6 +45,7 @@ const Field = () => {
 
     const scanBody2 = fieldBody2.onValueChanged((value: undefined | string) => {
       if (value) {
+        console.log('body2', readingTime(value));
         setTimeToRead({ ...timeToRead, body2: readingTime(value) });
         updateMessage();
       }
