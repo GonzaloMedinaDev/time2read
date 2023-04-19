@@ -28,12 +28,12 @@ const Field = () => {
     // });
 
     fieldBody.onValueChanged((value: undefined | string) => {
-      console.log('value1 => ', value);
+      console.log('value1 => ');
       value && setTimeToRead({ ...timeToRead, body: readingTime(value) });
     });
 
     fieldBody2.onValueChanged((value: undefined | string) => {
-      console.log('value2 => ', value);
+      console.log('value2 => ');
       value && setTimeToRead({ ...timeToRead, body2: readingTime(value) });
     });
 
