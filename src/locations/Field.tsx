@@ -27,6 +27,10 @@ const Field = () => {
 
   const updateMessage = useCallback(() => {
     const totalTime = timeToRead.body + timeToRead.body;
+
+    console.log('timeToRead => ', timeToRead);
+    console.log('totalTime => ', totalTime);
+
     setTimeMessage(`${totalTime} minute${totalTime > 1 ? 's' : ''} read`);
     sdk.field.setValue(timeMessage);
   }, [sdk.field, timeMessage, timeToRead]);
@@ -34,12 +38,7 @@ const Field = () => {
   useEffect(() => {
     sdk.window.startAutoResizer();
 
-    console.log('fieldBody => ', fieldBody);
-    console.log('fieldBody2 => ', fieldBody2);
-
     const scanBody = fieldBody.onValueChanged((value: undefined | string) => {
-      console.log('value => ', value);
-
       if (value) {
         setTimeToRead({ ...timeToRead, body: readingTime(value) });
         updateMessage();
@@ -47,8 +46,6 @@ const Field = () => {
     });
 
     const scanBody2 = fieldBody2.onValueChanged((value: undefined | string) => {
-      console.log('value2 => ', value);
-
       if (value) {
         setTimeToRead({ ...timeToRead, body2: readingTime(value) });
         updateMessage();
