@@ -21,8 +21,8 @@ const Field = () => {
   const fieldBody2 = sdk.entry.fields['body2'];
   const [timeMessage, setTimeMessage] = useState('');
   const [timeToRead, setTimeToRead] = useState<TimeToReadType>({
-    body: 33,
-    body2: 55,
+    body: 0,
+    body2: 0,
   });
 
   useEffect(() => {
@@ -63,6 +63,10 @@ const Field = () => {
     sdk.field.setValue(timeMessage);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeToRead]);
+
+  useEffect(() => {
+    console.log('big load');
+  }, []);
 
   return (
     <TextInput
