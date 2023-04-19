@@ -30,10 +30,6 @@ const Field = () => {
 
     const updateMessage = () => {
       const totalTime = timeToRead.body + timeToRead.body2;
-
-      console.log('timeToRead => ', timeToRead);
-      console.log('totalTime => ', totalTime);
-
       setTimeMessage(`${totalTime} minute${totalTime > 1 ? 's' : ''} read`);
       sdk.field.setValue(timeMessage);
     };
@@ -58,7 +54,8 @@ const Field = () => {
     };
 
     return () => detach();
-  }, [fieldBody, fieldBody2, sdk.field, sdk.window, timeMessage, timeToRead]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fieldBody, fieldBody2, sdk.field, sdk.window]);
 
   return (
     <TextInput
