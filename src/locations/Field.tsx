@@ -21,8 +21,8 @@ const Field = () => {
   const fieldBody2 = sdk.entry.fields['body2'];
   const [timeMessage, setTimeMessage] = useState('');
   const [timeToRead, setTimeToRead] = useState<TimeToReadType>({
-    body: 0,
-    body2: 0,
+    body: 3,
+    body2: 5,
   });
 
   useEffect(() => {
@@ -54,10 +54,12 @@ const Field = () => {
 
   useEffect(() => {
     console.log('timeToRead', timeToRead);
-    const totalTime = timeToRead.body + timeToRead.body2;
+    // const totalTime = timeToRead.body + timeToRead.body2;
+    let totalTime = 0;
 
     Object.entries(timeToRead).map((value) => {
-      console.log('map =>', value);
+      console.log('map =>', value[1]);
+      totalTime += value[1];
     });
 
     setTimeMessage(`${totalTime} minute${totalTime === 1 ? '' : 's'} read`);
