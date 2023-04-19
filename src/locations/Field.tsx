@@ -57,10 +57,7 @@ const Field = () => {
     // const totalTime = timeToRead.body + timeToRead.body2;
     let totalTime = 0;
 
-    Object.entries(timeToRead).map((value) => {
-      console.log('map =>', value[1]);
-      totalTime += value[1];
-    });
+    Object.entries(timeToRead).forEach((value) => (totalTime += value[1]));
 
     setTimeMessage(`${totalTime} minute${totalTime === 1 ? '' : 's'} read`);
     sdk.field.setValue(timeMessage);
