@@ -25,18 +25,18 @@ const Field = () => {
   });
   const [timeMessage, setTimeMessage] = useState('');
 
-  const updateMessage = useCallback(() => {
-    const totalTime = timeToRead.body + timeToRead.body;
-
-    console.log('timeToRead => ', timeToRead);
-    console.log('totalTime => ', totalTime);
-
-    setTimeMessage(`${totalTime} minute${totalTime > 1 ? 's' : ''} read`);
-    sdk.field.setValue(timeMessage);
-  }, [sdk.field, timeMessage, timeToRead]);
-
   useEffect(() => {
     sdk.window.startAutoResizer();
+
+    const updateMessage = () => {
+      const totalTime = timeToRead.body + timeToRead.body2;
+
+      console.log('timeToRead => ', timeToRead);
+      console.log('totalTime => ', totalTime);
+
+      setTimeMessage(`${totalTime} minute${totalTime > 1 ? 's' : ''} read`);
+      sdk.field.setValue(timeMessage);
+    };
 
     const scanBody = fieldBody.onValueChanged((value: undefined | string) => {
       if (value) {
@@ -58,7 +58,7 @@ const Field = () => {
     };
 
     return () => detach();
-  }, [fieldBody, fieldBody2, sdk.window, timeToRead, updateMessage]);
+  }, [fieldBody, fieldBody2, sdk.field, sdk.window, timeMessage, timeToRead]);
 
   return (
     <TextInput
