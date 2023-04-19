@@ -23,21 +23,25 @@ const Field = () => {
   useEffect(() => {
     sdk.window.startAutoResizer();
 
-    const scanBody = fieldBody.onValueChanged((value: undefined | string) => {
+    // const scanBody = fieldBody.onValueChanged((value: undefined | string) => {
+    //   value && setTimeToRead({ ...timeToRead, body: readingTime(value) });
+    // });
+
+    fieldBody.onValueChanged((value: undefined | string) => {
       value && setTimeToRead({ ...timeToRead, body: readingTime(value) });
     });
 
-    const scanBody2 = fieldBody2.onValueChanged((value: undefined | string) => {
+    fieldBody2.onValueChanged((value: undefined | string) => {
       value && setTimeToRead({ ...timeToRead, body2: readingTime(value) });
     });
 
-    const detach = () => {
-      console.log('detach');
-      scanBody();
-      scanBody2();
-    };
+    // const detach = () => {
+    //   console.log('detach');
+    //   scanBody();
+    //   scanBody2();
+    // };
 
-    return () => detach();
+    // return () => detach();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fieldBody, fieldBody2]);
 
