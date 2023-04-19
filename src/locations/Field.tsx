@@ -29,6 +29,7 @@ const Field = () => {
     sdk.window.startAutoResizer();
 
     const updateMessage = () => {
+      console.log('timeToRead', timeToRead);
       const totalTime = timeToRead.body + timeToRead.body2;
       setTimeMessage(`${totalTime} minute${totalTime > 1 ? 's' : ''} read`);
       sdk.field.setValue(timeMessage);
