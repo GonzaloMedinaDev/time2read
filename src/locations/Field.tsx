@@ -3,7 +3,6 @@ import { TextInput } from '@contentful/f36-components';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { useSDK } from '@contentful/react-apps-toolkit';
 
-const CONTENT_FIELD_ID = 'body';
 const WORDS_PER_MINUTE = 160;
 
 const readingTime = (content: undefined | string) => {
@@ -21,22 +20,39 @@ const readingTime = (content: undefined | string) => {
 
 const Field = () => {
   const sdk = useSDK<FieldExtensionSDK>();
-  const contentField = sdk.entry.fields[CONTENT_FIELD_ID];
+  const fieldBody = sdk.entry.fields['body'];
+  const fieldBody2 = sdk.entry.fields['body2'];
   const [timeToRead, setTimeToRead] = useState('0 minutes read');
 
   useEffect(() => {
     sdk.window.startAutoResizer();
 
-    console.log('contentField => ', contentField);
+    console.log('fieldBody => ', fieldBody);
+    console.log('fieldBody2 => ', fieldBody2);
 
-    const detach = contentField.onValueChanged((value: undefined | string) => {
+    const scanBody = fieldBody.onValueChanged((value: undefined | string) => {
+      console.log('value => ', value);
+
       const res = readingTime(value);
       setTimeToRead(res);
       sdk.field.setValue(res);
     });
 
+    const scanBody2 = fieldBody2.onValueChanged((value: undefined | string) => {
+      console.log('value2 => ', value);
+
+      // const res = readingTime(value);
+      // setTimeToRead(res);
+      // sdk.field.setValue(res);
+    });
+
+    const detach = () => {
+      scanBody();
+      scanBody2();
+    };
+
     return () => detach();
-  }, [contentField, sdk.field, sdk.window]);
+  }, [fieldBody, fieldBody2, sdk.field, sdk.window]);
 
   return (
     <TextInput
