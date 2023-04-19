@@ -5,6 +5,11 @@ import { useSDK } from '@contentful/react-apps-toolkit';
 
 const WORDS_PER_MINUTE = 160;
 
+interface TimeToReadType {
+  body: number;
+  body2: number;
+}
+
 const readingTime = (content: string): number => {
   const wordCount = content.split(' ').length || 0;
   return Math.ceil(wordCount / WORDS_PER_MINUTE) || 0;
@@ -15,7 +20,7 @@ const Field = () => {
   const fieldBody = sdk.entry.fields['body'];
   const fieldBody2 = sdk.entry.fields['body2'];
   const [timeMessage, setTimeMessage] = useState('');
-  const [timeToRead, setTimeToRead] = useState({
+  const [timeToRead, setTimeToRead] = useState<TimeToReadType>({
     body: 0,
     body2: 0,
   });
@@ -50,6 +55,11 @@ const Field = () => {
   useEffect(() => {
     console.log('timeToRead', timeToRead);
     const totalTime = timeToRead.body + timeToRead.body2;
+
+    Object.entries(timeToRead).map((value) => {
+      console.log('map =>', value);
+    });
+
     setTimeMessage(`${totalTime} minute${totalTime === 1 ? '' : 's'} read`);
     sdk.field.setValue(timeMessage);
     // eslint-disable-next-line react-hooks/exhaustive-deps
