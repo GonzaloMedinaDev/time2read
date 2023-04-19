@@ -28,18 +28,10 @@ const Field = () => {
   useEffect(() => {
     sdk.window.startAutoResizer();
 
-    const updateMessage = () => {
-      console.log('timeToRead', timeToRead);
-      const totalTime = timeToRead.body + timeToRead.body2;
-      setTimeMessage(`${totalTime} minute${totalTime === 1 ? '' : 's'} read`);
-      sdk.field.setValue(timeMessage);
-    };
-
     const scanBody = fieldBody.onValueChanged((value: undefined | string) => {
       if (value) {
         console.log('body', readingTime(value));
         setTimeToRead({ ...timeToRead, body: readingTime(value) });
-        updateMessage();
       }
     });
 
@@ -47,7 +39,6 @@ const Field = () => {
       if (value) {
         console.log('body2', readingTime(value));
         setTimeToRead({ ...timeToRead, body2: readingTime(value) });
-        updateMessage();
       }
     });
 
@@ -58,7 +49,17 @@ const Field = () => {
 
     return () => detach();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fieldBody, fieldBody2, sdk.field, sdk.window]);
+  }, [fieldBody, fieldBody2]);
+
+  // , sdk.field, sdk.window
+
+  useEffect(() => {
+    console.log('timeToRead', timeToRead);
+    const totalTime = timeToRead.body + timeToRead.body2;
+    setTimeMessage(`${totalTime} minute${totalTime === 1 ? '' : 's'} read`);
+    sdk.field.setValue(timeMessage);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timeToRead]);
 
   return (
     <TextInput
