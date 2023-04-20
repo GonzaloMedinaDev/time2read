@@ -26,6 +26,9 @@ const Field = () => {
     body2: 0,
   });
 
+  const updateTime = (field: string, data: number) =>
+    setTimeToRead({ ...timeToRead, [field]: data });
+
   useEffect(() => {
     // const scanBody = fieldBody.onValueChanged((value: undefined | string) => {
     //   value && setTimeToRead({ ...timeToRead, body: readingTime(value) });
@@ -42,12 +45,12 @@ const Field = () => {
     fieldBody.onValueChanged((value: undefined | string) => {
       console.log('value1 => ', value?.length);
       console.log('timeToRead X', timeToRead);
-      value && setTimeToRead({ ...timeToRead, body: readingTime(value) });
+      value && updateTime('body', readingTime(value));
     });
 
     fieldBody2.onValueChanged((value: undefined | string) => {
       console.log('value2 => ', value?.length);
-      value && setTimeToRead({ ...timeToRead, body2: readingTime(value) });
+      value && updateTime('body2', readingTime(value));
     });
   }, [fieldBody, fieldBody2]);
 
