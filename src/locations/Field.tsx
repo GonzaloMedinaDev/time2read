@@ -60,10 +60,6 @@ const Field = () => {
     fieldBody.onValueChanged((value: undefined | string) => {
       console.log('value1 => ', value?.length);
       console.log('time2read', time2read);
-      // value && updateTime('body', readingTime(value));
-
-      let valueX = 0;
-      if (value) valueX = readingTime(value);
 
       time2read['body'] = value ? readingTime(value) : 0;
     });
@@ -71,10 +67,6 @@ const Field = () => {
     fieldBody2.onValueChanged((value: undefined | string) => {
       console.log('value2 => ', value?.length);
       console.log('time2read', time2read);
-      // value && updateTime('body2', readingTime(value));
-
-      let valueX = 0;
-      if (value) valueX = readingTime(value);
 
       time2read['body2'] = value ? readingTime(value) : 0;
     });
@@ -82,13 +74,13 @@ const Field = () => {
 
   useEffect(() => {
     let totalTime = 0;
-    console.log('timeToRead', timeToRead);
+    console.log('time2read', time2read);
 
-    Object.entries(timeToRead).forEach((value) => (totalTime += value[1]));
+    Object.entries(time2read).forEach((value) => (totalTime += value[1]));
 
     setTimeMessage(`${totalTime} minute${totalTime === 1 ? '' : 's'} read`);
     sdk.field.setValue(timeMessage);
-  }, [timeToRead]);
+  }, [time2read]);
 
   useEffect(() => sdk.window.startAutoResizer(), []);
 
