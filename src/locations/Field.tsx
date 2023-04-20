@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import { TextInput } from '@contentful/f36-components';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
@@ -26,21 +27,9 @@ const Field = () => {
   });
 
   useEffect(() => {
-    sdk.window.startAutoResizer();
-
     // const scanBody = fieldBody.onValueChanged((value: undefined | string) => {
     //   value && setTimeToRead({ ...timeToRead, body: readingTime(value) });
     // });
-
-    fieldBody.onValueChanged((value: undefined | string) => {
-      console.log('value1 => ', value?.length);
-      value && setTimeToRead({ ...timeToRead, body: readingTime(value) });
-    });
-
-    fieldBody2.onValueChanged((value: undefined | string) => {
-      console.log('value2 => ', value?.length);
-      value && setTimeToRead({ ...timeToRead, body2: readingTime(value) });
-    });
 
     // const detach = () => {
     //   console.log('detach');
@@ -49,24 +38,30 @@ const Field = () => {
     // };
 
     // return () => detach();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    fieldBody.onValueChanged((value: undefined | string) => {
+      console.log('value1 => ', value?.length);
+      console.log('timeToRead X', timeToRead);
+      value && setTimeToRead({ ...timeToRead, body: readingTime(value) });
+    });
+
+    fieldBody2.onValueChanged((value: undefined | string) => {
+      console.log('value2 => ', value?.length);
+      value && setTimeToRead({ ...timeToRead, body2: readingTime(value) });
+    });
   }, [fieldBody, fieldBody2]);
 
   useEffect(() => {
-    console.log('timeToRead', timeToRead);
-    // const totalTime = timeToRead.body + timeToRead.body2;
     let totalTime = 0;
+    console.log('timeToRead', timeToRead);
 
     Object.entries(timeToRead).forEach((value) => (totalTime += value[1]));
 
     setTimeMessage(`${totalTime} minute${totalTime === 1 ? '' : 's'} read`);
     sdk.field.setValue(timeMessage);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeToRead]);
 
-  useEffect(() => {
-    console.log('big load');
-  }, []);
+  useEffect(() => sdk.window.startAutoResizer(), []);
 
   return (
     <TextInput
