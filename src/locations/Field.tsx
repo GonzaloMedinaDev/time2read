@@ -65,7 +65,7 @@ const Field = () => {
       let valueX = 0;
       if (value) valueX = readingTime(value);
 
-      time2read['body'] = valueX;
+      time2read['body'] = value ? readingTime(value) : 0;
     });
 
     fieldBody2.onValueChanged((value: undefined | string) => {
@@ -76,7 +76,7 @@ const Field = () => {
       let valueX = 0;
       if (value) valueX = readingTime(value);
 
-      time2read['body2'] = valueX;
+      time2read['body2'] = value ? readingTime(value) : 0;
     });
   }, [fieldBody, fieldBody2]);
 
