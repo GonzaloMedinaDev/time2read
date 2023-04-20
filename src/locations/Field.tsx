@@ -77,7 +77,7 @@ const Field = () => {
     console.log('time2read X', time2read);
 
     Object.entries(time2read).forEach((value) => {
-      console.log('valuessss => ', value);
+      console.log('valuessss => ', value[1]);
       totalTime += value[1];
     });
 
