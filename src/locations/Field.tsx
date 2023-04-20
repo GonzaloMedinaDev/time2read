@@ -34,8 +34,8 @@ const Field = () => {
 
     setTimeToRead({ ...timeToRead, [field]: data });
 
-    if (field === 'body2') time2read['body'] += data;
-    else if (field === 'body2') time2read['body2'] += data;
+    if (field === 'body2') time2read['body'] = data;
+    else if (field === 'body2') time2read['body2'] = data;
   };
 
   useEffect(() => {
