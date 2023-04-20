@@ -26,7 +26,7 @@ const Field = () => {
     body2: 0,
   });
 
-  const time2read = { body: 0, body2: 0 };
+  const time2read: TimeToReadType = { body: 0, body2: 0 };
 
   // const updateTime = (field: string, data: number) => {
   //   console.log('timeToRead X', timeToRead);
@@ -51,16 +51,16 @@ const Field = () => {
 
     // return () => detach();
 
-    console.log('time2read', time2read);
-
     fieldBody.onValueChanged((value: undefined | string) => {
       console.log('value1 => ', value?.length);
+      console.log('time2read', time2read);
       // value && updateTime('body', readingTime(value));
       if (value) time2read['body'] = readingTime(value);
     });
 
     fieldBody2.onValueChanged((value: undefined | string) => {
       console.log('value2 => ', value?.length);
+      console.log('time2read', time2read);
       // value && updateTime('body2', readingTime(value));
       if (value) time2read['body2'] = readingTime(value);
     });
