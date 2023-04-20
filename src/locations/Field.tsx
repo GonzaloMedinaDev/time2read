@@ -23,16 +23,6 @@ const Field = () => {
 
   const time2read: TimeToReadType = { body: 0, body2: 0 };
 
-  // const updateTime = (field: string, data: number) => {
-  //   console.log('timeToRead X', timeToRead);
-  //   console.log('time2read', time2read);
-
-  //   setTimeToRead({ ...timeToRead, [field]: data });
-
-  //   if (field === 'body2') time2read['body'] = data;
-  //   else if (field === 'body2') time2read['body2'] = data;
-  // };
-
   useEffect(() => {
     // const scanBody = fieldBody.onValueChanged((value: undefined | string) => {
     //   value && setTimeToRead({ ...timeToRead, body: readingTime(value) });
@@ -54,27 +44,15 @@ const Field = () => {
       updateMessage();
     });
 
-    fieldBody2.onValueChanged((value: undefined | string) => {
-      console.log('value2 => ', value?.length);
-      console.log('time2read', time2read);
+    fieldBody2 &&
+      fieldBody2.onValueChanged((value: undefined | string) => {
+        console.log('value2 => ', value?.length);
+        console.log('time2read', time2read);
 
-      time2read['body2'] = value ? readingTime(value) : 0;
-      updateMessage();
-    });
+        time2read['body2'] = value ? readingTime(value) : 0;
+        updateMessage();
+      });
   }, [fieldBody, fieldBody2]);
-
-  // useEffect(() => {
-  //   let totalTime = 0;
-  //   console.log('time2read X', time2read);
-
-  //   Object.entries(time2read).forEach((value) => {
-  //     console.log('valuessss => ', value[1]);
-  //     totalTime += value[1];
-  //   });
-
-  //   setTimeMessage(`${totalTime} minute${totalTime === 1 ? '' : 's'} read`);
-  //   sdk.field.setValue(timeMessage);
-  // }, [time2read]);
 
   useEffect(() => sdk.window.startAutoResizer(), []);
 
