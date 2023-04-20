@@ -11,26 +11,15 @@ interface TimeToReadType {
   body2: number;
 }
 
-const readingTime = (content: undefined | string): number => {
-  let response = 0;
-
-  if (content) {
-    const wordCount = content.split(' ').length || 0;
-    response = Math.ceil(wordCount / WORDS_PER_MINUTE);
-  }
-
-  return response;
-};
-
 const Field = () => {
   const sdk = useSDK<FieldExtensionSDK>();
   const fieldBody = sdk.entry.fields['body'];
   const fieldBody2 = sdk.entry.fields['body2'];
   const [timeMessage, setTimeMessage] = useState('');
-  const [timeToRead, setTimeToRead] = useState<TimeToReadType>({
-    body: 0,
-    body2: 0,
-  });
+  // const [timeToRead, setTimeToRead] = useState<TimeToReadType>({
+  //   body: 0,
+  //   body2: 0,
+  // });
 
   const time2read: TimeToReadType = { body: 0, body2: 0 };
 
@@ -62,6 +51,7 @@ const Field = () => {
       console.log('time2read', time2read);
 
       time2read['body'] = value ? readingTime(value) : 0;
+      updateMessage();
     });
 
     fieldBody2.onValueChanged((value: undefined | string) => {
@@ -69,10 +59,26 @@ const Field = () => {
       console.log('time2read', time2read);
 
       time2read['body2'] = value ? readingTime(value) : 0;
+      updateMessage();
     });
   }, [fieldBody, fieldBody2]);
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   let totalTime = 0;
+  //   console.log('time2read X', time2read);
+
+  //   Object.entries(time2read).forEach((value) => {
+  //     console.log('valuessss => ', value[1]);
+  //     totalTime += value[1];
+  //   });
+
+  //   setTimeMessage(`${totalTime} minute${totalTime === 1 ? '' : 's'} read`);
+  //   sdk.field.setValue(timeMessage);
+  // }, [time2read]);
+
+  useEffect(() => sdk.window.startAutoResizer(), []);
+
+  const updateMessage = () => {
     let totalTime = 0;
     console.log('time2read X', time2read);
 
@@ -83,9 +89,7 @@ const Field = () => {
 
     setTimeMessage(`${totalTime} minute${totalTime === 1 ? '' : 's'} read`);
     sdk.field.setValue(timeMessage);
-  }, [time2read]);
-
-  useEffect(() => sdk.window.startAutoResizer(), []);
+  };
 
   return (
     <TextInput
@@ -99,3 +103,8 @@ const Field = () => {
 };
 
 export default Field;
+
+const readingTime = (content: string): number => {
+  const wordCount = content.split(' ').length || 0;
+  return Math.ceil(wordCount / WORDS_PER_MINUTE);
+};
