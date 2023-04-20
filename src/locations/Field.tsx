@@ -11,9 +11,15 @@ interface TimeToReadType {
   body2: number;
 }
 
-const readingTime = (content: string): number => {
-  const wordCount = content.split(' ').length || 0;
-  return Math.ceil(wordCount / WORDS_PER_MINUTE) || 0;
+const readingTime = (content: undefined | string): number => {
+  let response = 0;
+
+  if (content) {
+    const wordCount = content.split(' ').length || 0;
+    response = Math.ceil(wordCount / WORDS_PER_MINUTE);
+  }
+
+  return response;
 };
 
 const Field = () => {
@@ -55,14 +61,14 @@ const Field = () => {
       console.log('value1 => ', value?.length);
       console.log('time2read', time2read);
       // value && updateTime('body', readingTime(value));
-      if (value) time2read['body'] = readingTime(value);
+      time2read['body'] = readingTime(value);
     });
 
     fieldBody2.onValueChanged((value: undefined | string) => {
       console.log('value2 => ', value?.length);
       console.log('time2read', time2read);
       // value && updateTime('body2', readingTime(value));
-      if (value) time2read['body2'] = readingTime(value);
+      time2read['body2'] = readingTime(value);
     });
   }, [fieldBody, fieldBody2]);
 
