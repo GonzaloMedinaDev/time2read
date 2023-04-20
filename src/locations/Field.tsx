@@ -74,9 +74,12 @@ const Field = () => {
 
   useEffect(() => {
     let totalTime = 0;
-    console.log('time2read', time2read);
+    console.log('time2read X', time2read);
 
-    Object.entries(time2read).forEach((value) => (totalTime += value[1]));
+    Object.entries(time2read).forEach((value) => {
+      console.log('valuessss => ', value);
+      totalTime += value[1];
+    });
 
     setTimeMessage(`${totalTime} minute${totalTime === 1 ? '' : 's'} read`);
     sdk.field.setValue(timeMessage);
