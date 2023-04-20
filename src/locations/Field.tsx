@@ -26,7 +26,7 @@ const Field = () => {
     body2: 0,
   });
 
-  const time2read = [0, 0];
+  const time2read = { body: 0, body2: 0 };
 
   const updateTime = (field: string, data: number) => {
     console.log('timeToRead X', timeToRead);
@@ -34,10 +34,8 @@ const Field = () => {
 
     setTimeToRead({ ...timeToRead, [field]: data });
 
-    let pos = 0;
-    if (field === 'body2') pos = 1;
-
-    time2read[pos] += data;
+    if (field === 'body2') time2read['body'] += data;
+    else if (field === 'body2') time2read['body2'] += data;
   };
 
   useEffect(() => {
