@@ -61,14 +61,14 @@ const Field = () => {
       console.log('value1 => ', value?.length);
       console.log('time2read', time2read);
       // value && updateTime('body', readingTime(value));
-      time2read['body'] = value ? readingTime(value) : 0;
+      time2read['body'] = value !== undefined ? readingTime(value) : 0;
     });
 
     fieldBody2.onValueChanged((value: undefined | string) => {
       console.log('value2 => ', value?.length);
       console.log('time2read', time2read);
       // value && updateTime('body2', readingTime(value));
-      time2read['body2'] = value ? readingTime(value) : 0;
+      time2read['body2'] = value !== undefined ? readingTime(value) : 0;
     });
   }, [fieldBody, fieldBody2]);
 
