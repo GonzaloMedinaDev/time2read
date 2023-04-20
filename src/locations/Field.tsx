@@ -28,15 +28,15 @@ const Field = () => {
 
   const time2read = { body: 0, body2: 0 };
 
-  const updateTime = (field: string, data: number) => {
-    console.log('timeToRead X', timeToRead);
-    console.log('time2read', time2read);
+  // const updateTime = (field: string, data: number) => {
+  //   console.log('timeToRead X', timeToRead);
+  //   console.log('time2read', time2read);
 
-    setTimeToRead({ ...timeToRead, [field]: data });
+  //   setTimeToRead({ ...timeToRead, [field]: data });
 
-    if (field === 'body2') time2read['body'] = data;
-    else if (field === 'body2') time2read['body2'] = data;
-  };
+  //   if (field === 'body2') time2read['body'] = data;
+  //   else if (field === 'body2') time2read['body2'] = data;
+  // };
 
   useEffect(() => {
     // const scanBody = fieldBody.onValueChanged((value: undefined | string) => {
@@ -51,14 +51,18 @@ const Field = () => {
 
     // return () => detach();
 
+    console.log('time2read', time2read);
+
     fieldBody.onValueChanged((value: undefined | string) => {
       console.log('value1 => ', value?.length);
-      value && updateTime('body', readingTime(value));
+      // value && updateTime('body', readingTime(value));
+      if (value) time2read['body'] = readingTime(value);
     });
 
     fieldBody2.onValueChanged((value: undefined | string) => {
       console.log('value2 => ', value?.length);
-      value && updateTime('body2', readingTime(value));
+      // value && updateTime('body2', readingTime(value));
+      if (value) time2read['body2'] = readingTime(value);
     });
   }, [fieldBody, fieldBody2]);
 
