@@ -67,11 +67,12 @@ const Field = () => {
   const updateMessage = () => {
     let totalTime = 0;
     Object.entries(TIME2READ).forEach((value) => (totalTime += value[1]));
-    setTimeMessage(`${totalTime} minute${totalTime === 1 ? '' : 's'} read`);
+    const msj = `${totalTime} minute${totalTime === 1 ? '' : 's'} read`;
+    setTimeMessage(msj);
     // sdk.field.setValue(timeMessage);
 
     sdk.field
-      .setValue(`${totalTime} minute${totalTime === 1 ? '' : 's'} read`)
+      .setValue(msj)
       .then((data) => {
         console.log('saved', data);
       })
