@@ -71,15 +71,9 @@ const Field = () => {
     // sdk.field.setValue(timeMessage);
 
     sdk.field
-      .setValue({
-        sys: {
-          id: timeMessage,
-          linkType: 'Entry',
-          type: 'Link',
-        },
-      })
-      .then(() => {
-        console.log('saved');
+      .setValue(timeMessage)
+      .then((data) => {
+        console.log('saved', data);
       })
       .catch((error) => {
         console.log('error', error);
