@@ -68,7 +68,22 @@ const Field = () => {
     let totalTime = 0;
     Object.entries(TIME2READ).forEach((value) => (totalTime += value[1]));
     setTimeMessage(`${totalTime} minute${totalTime === 1 ? '' : 's'} read`);
-    sdk.field.setValue(timeMessage);
+    // sdk.field.setValue(timeMessage);
+
+    sdk.field
+      .setValue({
+        sys: {
+          id: timeMessage,
+          linkType: 'Entry',
+          type: 'Link',
+        },
+      })
+      .then(() => {
+        console.log('saved');
+      })
+      .catch((error) => {
+        console.log('error', error);
+      });
   };
 
   return (
