@@ -71,7 +71,7 @@ const Field = () => {
     // sdk.field.setValue(timeMessage);
 
     sdk.field
-      .setValue(timeMessage)
+      .setValue(`${totalTime} minute${totalTime === 1 ? '' : 's'} read`)
       .then((data) => {
         console.log('saved', data);
       })
