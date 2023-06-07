@@ -67,7 +67,7 @@ const Field = () => {
   const updateMessage = () => {
     let totalTime = 0;
     Object.entries(TIME2READ).forEach((value) => (totalTime += value[1]));
-    const msj = `${totalTime} min${totalTime === 1 ? '' : 's'}. read`;
+    const msj = `${totalTime} min read`;
     setTimeMessage(msj);
 
     sdk.field
