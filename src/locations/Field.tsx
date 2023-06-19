@@ -29,6 +29,7 @@ const Field = () => {
   const fieldDesktop = sdk.entry.fields['desktopSteps'];
   const fieldIOS = sdk.entry.fields['iosSteps'];
   const fieldAndroid = sdk.entry.fields['androidSteps'];
+
   const [timeMessage, setTimeMessage] = useState('');
 
   useEffect(() => {
@@ -94,6 +95,6 @@ const Field = () => {
 export default Field;
 
 const readingTime = (content: string): number => {
-  const wordCount = content.split(' ').length || 0;
+  const wordCount = content.replaceAll(/<[^>]*>?/gm, '').split(' ').length || 0;
   return Math.ceil(wordCount / WORDS_PER_MINUTE);
 };
