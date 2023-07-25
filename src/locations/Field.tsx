@@ -26,10 +26,8 @@ const Field = () => {
 export default Field;
 
 const readingTime = (content: string): string => {
-  let wordCount = 0;
-
   if (content !== undefined) {
-    wordCount += content.split(' ').length;
+    const wordCount = content.split(' ').length || 0;
     const minutes = Math.ceil(wordCount / WORDS_PER_MINUTE);
     return `${minutes} min read`;
   } else {
