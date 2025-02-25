@@ -29,6 +29,9 @@ const readingTime = (content: string): string => {
   if (content !== undefined) {
     const wordCount = content.split(' ').length || 0;
     const minutes = Math.ceil(wordCount / WORDS_PER_MINUTE);
+
+    console.log('minutes', minutes);
+
     return `${minutes} min read`;
   } else {
     return '0 min read';
