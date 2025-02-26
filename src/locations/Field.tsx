@@ -15,7 +15,7 @@ const Field = () => {
   useEffect(() => {
     fieldBody.onValueChanged((value) => {
       setTimeToRead(readingTime(documentToPlainTextString(value)));
-      console.log('@@ timeToRead', timeToRead);
+      setTimeout(() => console.log('@ timeToRead:', timeToRead), 500);
     });
   }, [fieldBody]);
 
