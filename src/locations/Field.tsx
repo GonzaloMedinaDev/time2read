@@ -13,9 +13,10 @@ const Field = () => {
   const [timeToRead, setTimeToRead] = useState('0 min read');
 
   useEffect(() => {
-    fieldBody.onValueChanged((value) =>
-      setTimeToRead(readingTime(documentToPlainTextString(value)))
-    );
+    fieldBody.onValueChanged((value) => {
+      setTimeToRead(readingTime(documentToPlainTextString(value)));
+      console.log('@@ timeToRead', timeToRead);
+    });
   }, [fieldBody]);
 
   useEffect(() => sdk.window.startAutoResizer(), [sdk.window]);
@@ -28,8 +29,6 @@ export default Field;
 const readingTime = (content: string): string => {
   const wordCount = content !== undefined ? content.split(' ').length : 0;
   const minutes = Math.ceil(wordCount / WORDS_PER_MINUTE);
-
-  console.log('> minutes', minutes);
 
   return `${minutes} min read`;
 };
